@@ -9,12 +9,18 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+The Sum output is computed using XOR operations, which effectively add the bits without considering carry overflow.
+The Cout output determines if a carry is generated when at least two of the three inputs are high.
 
 ## How to test
 
-Explain how to use your project
+Place the design file in the src/ directory.
+Ensure info.yaml includes:
+top_module: full_adder
+Correct source_files
+Run simulation using your preferred Verilog simulator (e.g., Icarus Verilog).
+Check outputs against the truth table.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+No external hardware is required. The design can be fully simulated and verified using a Verilog testbench.
