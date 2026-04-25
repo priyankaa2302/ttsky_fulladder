@@ -20,7 +20,7 @@ async def test_fulladder(dut):
     dut.rst_n.value = 1
     await Timer(50, units="ns")
 
-    # Define correct test cases: (A, B, Cin, Sum, Cout)
+    # Full adder truth table
     test_cases = [
         (0, 0, 0, 0, 0),
         (0, 0, 1, 1, 0),
@@ -34,10 +34,12 @@ async def test_fulladder(dut):
 
     for a, b, cin, e_sum, e_cout in test_cases:
 
-        # Apply inputs
-        dut.uio_in.value = (cin << 2) | (b << 1) | a
+        #  FIX: drive ui_in (NOT uio_in)
+        dut.ui_in.value = (cin << 2) | (b << 1) | a
 
-        # Wait for output to settle
+        # keep uio_in unused
+        dut.uio_in.value = 0
+
         await Timer(20, units="ns")
 
         try:
@@ -53,6 +55,5 @@ async def test_fulladder(dut):
             )
 
         except ValueError:
-            # Helps debug 'x' or 'z' states
             dut._log.error(f"Logic error: uo_out is {str(dut.uo_out.value)}")
             raise
